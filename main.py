@@ -47,7 +47,7 @@ def mantencion_maestros(categoria,accion):
                         input()
                     
                     else:
-                        diccionario_seleccionado[nombre_cat_crear] = {"bloqueado":False,"Codigo":codigo_cat_crear,"Descripción":descripcion_cat_crear}
+                        diccionario_seleccionado[nombre_cat_crear] = {"bloqueado":False,"Codigo":codigo_cat_crear,"Descripción":descripcion_cat_crear,"Existencias":0}
                         print(diccionario_seleccionado)
                         input()
 
@@ -58,22 +58,37 @@ def mantencion_maestros(categoria,accion):
             if not diccionario_seleccionado:
                 print(f"No hay items en {categoria}, Intenta agregar items para empezar!")
             else:
+                ### Imprimir todos los items de la categoria
                 print(f"---{categoria}---")
                 for indice,detalles in diccionario_seleccionado.items():
                     codigo = detalles.get("Codigo",None)
                     descripcion = detalles.get("Descripción",None)
                     estado = detalles.get("bloqueado",None)
+                    existencias = detalles.get("Existencias",None)
                     if estado == False:
                         estado = "Desbloqueado"
                     else:
                         estado = "Bloqueado"
-                    print(f"{indice}: Estado:{estado}, Codigo:{codigo},  Descripción:{descripcion}")
-                input()
+                    print(f"{indice}: Estado:{estado}, Codigo:{codigo},  Descripción:{descripcion} , Stock:{existencias}")
+                
+                modificar_item = input(f"Ingresa el nombre del item a modificar en {categoria}: ")
+                if modificar_item in diccionario_seleccionado:
+                    print(f"¿Que quieres modificar de {modificar_item}?")
+                    print("1.Codigo\n" \
+                    "2.Descripción\n" \
+                    "3.Stock")
+                    modificar_opcion = input("Ingresa una opción: ")
+                    
+                else:
+                    print("No existe ese item")
+                    input()
 
         case "bloquear":
             print("bloqueando")
 
 
+
+####Empieza el programa
 programa = True
 
 while programa:
